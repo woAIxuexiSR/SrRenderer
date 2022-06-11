@@ -1,0 +1,6 @@
+D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/ALL_BUILD.dir
+D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/ZERO_CHECK.dir
+D:/myregion/LearnOptiX/SrRenderer/build/src/CMakeFiles/main.dir
+D:/myregion/LearnOptiX/SrRenderer/build/src/Opengl/CMakeFiles/window.dir
+D:/myregion/LearnOptiX/SrRenderer/build/src/Model/CMakeFiles/model.dir
+D:/myregion/LearnOptiX/SrRenderer/build/src/Intergrator/CMakeFiles/test.dir

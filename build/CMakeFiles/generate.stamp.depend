@@ -1,0 +1,32 @@
+# CMake generation dependency list for this directory.
+D:/myregion/LearnOptiX/SrRenderer/CMakeLists.txt
+D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/3.23.0/CMakeCCompiler.cmake
+D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/3.23.0/CMakeCUDACompiler.cmake
+D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/3.23.0/CMakeCXXCompiler.cmake
+D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/3.23.0/CMakeRCCompiler.cmake
+D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/3.23.0/CMakeSystem.cmake
+D:/software/CMake/share/cmake-3.23/Modules/CMakeCInformation.cmake
+D:/software/CMake/share/cmake-3.23/Modules/CMakeCUDAInformation.cmake
+D:/software/CMake/share/cmake-3.23/Modules/CMakeCXXInformation.cmake
+D:/software/CMake/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake
+D:/software/CMake/share/cmake-3.23/Modules/CMakeGenericSystem.cmake
+D:/software/CMake/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake
+D:/software/CMake/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake
+D:/software/CMake/share/cmake-3.23/Modules/CMakeRCInformation.cmake
+D:/software/CMake/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake
+D:/software/CMake/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake
+D:/software/CMake/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+D:/software/CMake/share/cmake-3.23/Modules/Compiler/MSVC-C.cmake
+D:/software/CMake/share/cmake-3.23/Modules/Compiler/MSVC-CXX.cmake
+D:/software/CMake/share/cmake-3.23/Modules/Compiler/NVIDIA-CUDA.cmake
+D:/software/CMake/share/cmake-3.23/Modules/FindCUDA.cmake
+D:/software/CMake/share/cmake-3.23/Modules/FindCUDA/select_compute_arch.cmake
+D:/software/CMake/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake
+D:/software/CMake/share/cmake-3.23/Modules/FindPackageMessage.cmake
+D:/software/CMake/share/cmake-3.23/Modules/Platform/Windows-MSVC-C.cmake
+D:/software/CMake/share/cmake-3.23/Modules/Platform/Windows-MSVC-CXX.cmake
+D:/software/CMake/share/cmake-3.23/Modules/Platform/Windows-MSVC.cmake
+D:/software/CMake/share/cmake-3.23/Modules/Platform/Windows-NVIDIA-CUDA.cmake
+D:/software/CMake/share/cmake-3.23/Modules/Platform/Windows.cmake
+D:/software/CMake/share/cmake-3.23/Modules/Platform/WindowsPaths.cmake
+D:/software/OptiX SDK 7.4.0/SDK/CMake/FindOptiX.cmake
