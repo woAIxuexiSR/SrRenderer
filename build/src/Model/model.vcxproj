@@ -79,7 +79,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Model\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Opengl;D:\myregion\LearnOptiX\SrRenderer\src\Intergrator;D:\myregion\LearnOptiX\SrRenderer\src\Model;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -97,10 +97,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Model\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Opengl;D:\myregion\LearnOptiX\SrRenderer\src\Intergrator;D:\myregion\LearnOptiX\SrRenderer\src\Model;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Model\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Opengl;D:\myregion\LearnOptiX\SrRenderer\src\Intergrator;D:\myregion\LearnOptiX\SrRenderer\src\Model;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -117,7 +117,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Model\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Opengl;D:\myregion\LearnOptiX\SrRenderer\src\Intergrator;D:\myregion\LearnOptiX\SrRenderer\src\Model;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -135,10 +135,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Model\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Opengl;D:\myregion\LearnOptiX\SrRenderer\src\Intergrator;D:\myregion\LearnOptiX\SrRenderer\src\Model;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Model\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Opengl;D:\myregion\LearnOptiX\SrRenderer\src\Intergrator;D:\myregion\LearnOptiX\SrRenderer\src\Model;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -155,7 +155,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Model\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Opengl;D:\myregion\LearnOptiX\SrRenderer\src\Intergrator;D:\myregion\LearnOptiX\SrRenderer\src\Model;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -173,10 +173,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Model\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Opengl;D:\myregion\LearnOptiX\SrRenderer\src\Intergrator;D:\myregion\LearnOptiX\SrRenderer\src\Model;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Model\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Opengl;D:\myregion\LearnOptiX\SrRenderer\src\Intergrator;D:\myregion\LearnOptiX\SrRenderer\src\Model;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -193,7 +193,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Model\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Opengl;D:\myregion\LearnOptiX\SrRenderer\src\Intergrator;D:\myregion\LearnOptiX\SrRenderer\src\Model;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -210,10 +210,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Model\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Opengl;D:\myregion\LearnOptiX\SrRenderer\src\Intergrator;D:\myregion\LearnOptiX\SrRenderer\src\Model;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Model\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\myregion\LearnOptiX\SrRenderer\ext\include;D:\software\imgui-master;D:\software\imgui-master\backends;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include;D:\software\OptiX SDK 7.4.0\include;D:\myregion\LearnOptiX\SrRenderer\src\Opengl;D:\myregion\LearnOptiX\SrRenderer\src\Intergrator;D:\myregion\LearnOptiX\SrRenderer\src\Model;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>

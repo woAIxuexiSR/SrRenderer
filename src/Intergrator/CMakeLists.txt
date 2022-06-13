@@ -1,3 +1,5 @@
+add_library(intergrator STATIC Intergrator.cpp)
+
 add_library(test OBJECT test.cu)
 target_link_libraries(test PUBLIC model)
 target_include_directories(test PUBLIC .)

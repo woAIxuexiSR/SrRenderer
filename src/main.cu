@@ -1,6 +1,11 @@
 #include <iostream>
 #include <vector>
 #include "Window.h"
+#include "Model.h"
+
+#include "Intergrator.h"
+
+#include "helper_math.h"
 
 void processInput(GLFWwindow *window)
 {
@@ -10,6 +15,16 @@ void processInput(GLFWwindow *window)
 
 int main()
 {
+    float3 a = make_float3(1, 2, 3);
+    std::cout << a.x << " " << a.y << " " << a.z << std::endl;
+
+    TriangleMesh* mesh = new TriangleMesh;
+    mesh->addCube(make_float3(0, 0, 0), make_float3(1, 1, 1));
+    Model* model = new Model;
+    model->meshes.push_back(mesh);
+
+    Intergrator i(model);
+
     const int width = 800, height = 600;
     Window w(width, height);
 
