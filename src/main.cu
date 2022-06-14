@@ -19,29 +19,28 @@ int main()
     std::cout << a.x << " " << a.y << " " << a.z << std::endl;
 
     TriangleMesh* mesh = new TriangleMesh;
-    mesh->addCube(make_float3(0, 0, 0), make_float3(1, 1, 1));
+    mesh->addCube(make_float3(0, 0, 5), make_float3(1, 1, 1));
     Model* model = new Model;
     model->meshes.push_back(mesh);
-
-    Intergrator i(model);
 
     const int width = 800, height = 600;
     Window w(width, height);
 
-    std::vector<float> v(width * height * 4, 0);
+    Intergrator i(model, width, height);
+
+    std::vector<float4> v(width * height);
     for(int i = 0; i < width; i++)
         for(int j = 0; j < height; j++)
         {
-            int idx = (i + j * width) * 4;
-            v[idx] = i / (float)width;
-            v[idx + 1] = j / (float)height;
-            v[idx + 2] = 0;
-            v[idx + 3] = 1;
+            int idx = (i + j * width);
+            v[idx] = make_float4(i / (float)width, j / (float)height, 0, 1);
         }
 
     while(!w.shouldClose())
     {
         processInput(w.window);
+        i.render();
+        i.download(v.data());
         w.run(v, width, height);
     }
 

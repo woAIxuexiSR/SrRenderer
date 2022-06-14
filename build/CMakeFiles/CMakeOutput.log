@@ -9,7 +9,7 @@ The output was:
 用于 .NET Framework 的 Microsoft (R) 生成引擎版本 16.11.2+f32259642
 版权所有(C) Microsoft Corporation。保留所有权利。
 
-生成启动时间为 2022/6/13 17:19:38。
+生成启动时间为 2022/6/14 15:38:09。
 节点 1 上的项目“D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\3.23.0\CompilerIdC\CompilerIdC.vcxproj”(默认目标)。
 PrepareForBuild:
   正在创建目录“Debug\”。
@@ -54,7 +54,7 @@ The output was:
 用于 .NET Framework 的 Microsoft (R) 生成引擎版本 16.11.2+f32259642
 版权所有(C) Microsoft Corporation。保留所有权利。
 
-生成启动时间为 2022/6/13 17:19:39。
+生成启动时间为 2022/6/14 15:38:10。
 节点 1 上的项目“D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\3.23.0\CompilerIdCXX\CompilerIdCXX.vcxproj”(默认目标)。
 PrepareForBuild:
   正在创建目录“Debug\”。
@@ -80,7 +80,7 @@ FinalizeBuildStatus:
     0 个警告
     0 个错误
 
-已用时间 00:00:00.47
+已用时间 00:00:00.44
 
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -99,7 +99,7 @@ The output was:
 用于 .NET Framework 的 Microsoft (R) 生成引擎版本 16.11.2+f32259642
 版权所有(C) Microsoft Corporation。保留所有权利。
 
-生成启动时间为 2022/6/13 17:19:39。
+生成启动时间为 2022/6/14 15:38:10。
 节点 1 上的项目“D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\3.23.0\CompilerIdCUDA\CompilerIdCUDA.vcxproj”(默认目标)。
 PrepareForBuild:
   正在创建目录“Debug\”。
@@ -111,7 +111,7 @@ AddCudaCompileDeps:
 项目“D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\3.23.0\CompilerIdCUDA\CompilerIdCUDA.vcxproj”(1)正在节点 1 上生成“D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\3.23.0\CompilerIdCUDA\CompilerIdCUDA.vcxproj”(1:2) (CudaBuildCore 个目标)。
 CudaBuildCore:
   Compiling CUDA source file CMakeCUDACompilerId.cu...
-  cmd.exe /C "C:\Users\11247\AppData\Local\Temp\tmp91ca2e76227e42a2927f1e8ad370e6cc.cmd"
+  cmd.exe /C "C:\Users\11247\AppData\Local\Temp\tmpa9266ab5060147f6a2a4161146431b26.cmd"
   "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\bin\nvcc.exe"  --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include"  -G   --keep-dir x64\Debug  -maxrregcount=0  --machine 64 --compile -cudart static -v -g  -D_MBCS -Xcompiler "/EHsc /W0 /nologo /Od /FdDebug\vc142.pdb /FS /Zi /RTC1 /MDd " -o Debug\CMakeCUDACompilerId.cu.obj "D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\3.23.0\CompilerIdCUDA\CMakeCUDACompilerId.cu"
   
   D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\3.23.0\CompilerIdCUDA>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\bin\nvcc.exe"  --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include"  -G   --keep-dir x64\Debug  -maxrregcount=0  --machine 64 --compile -cudart static -v -g  -D_MBCS -Xcompiler "/EHsc /W0 /nologo /Od /FdDebug\vc142.pdb /FS /Zi /RTC1 /MDd " -o Debug\CMakeCUDACompilerId.cu.obj "D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\3.23.0\CompilerIdCUDA\CMakeCUDACompilerId.cu" 
@@ -132,20 +132,20 @@ CudaBuildCore:
   #$ CUDAFE_FLAGS=--sdk_dir "C:\Program Files (x86)\Windows Kits\10"
   #$ PTXAS_FLAGS=
   CMakeCUDACompilerId.cu
-  #$ cl.exe @"C:\Users\11247\AppData\Local\Temp/tmpxft_0000cb14_00000000-9.res" > "C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-8_CMakeCUDACompilerId.cpp1.ii" 
+  #$ cl.exe @"C:\Users\11247\AppData\Local\Temp/tmpxft_00004ebc_00000000-9.res" > "C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-8_CMakeCUDACompilerId.cpp1.ii" 
   CMakeCUDACompilerId.cu
-  #$ erase C:\Users\11247\AppData\Local\Temp/tmpxft_0000cb14_00000000-9.res
-  #$ cicc --microsoft_version=1929 --msvc_target_version=1929 --compiler_bindir "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/HostX86/x64/../../../../../../.." --sdk_dir "C:/Program Files (x86)/Windows Kits/10/" --display_error_number --orig_src_file_name "D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/3.23.0/CompilerIdCUDA/CMakeCUDACompilerId.cu" --orig_src_path_name "D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\3.23.0\CompilerIdCUDA\CMakeCUDACompilerId.cu" --allow_managed --debug_mode --sdk_dir "C:\Program Files (x86)\Windows Kits\10"  -arch compute_52 -m64 --no-version-ident -ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 --include_file_name "tmpxft_0000cb14_00000000-4_CMakeCUDACompilerId.fatbin.c" -g -O0 -tused --gen_module_id_file --module_id_file_name "C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-5_CMakeCUDACompilerId.module_id" --gen_c_file_name "C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-7_CMakeCUDACompilerId.cudafe1.c" --stub_file_name "C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-7_CMakeCUDACompilerId.cudafe1.stub.c" --gen_device_file_name "C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-7_CMakeCUDACompilerId.cudafe1.gpu"  "C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-8_CMakeCUDACompilerId.cpp1.ii" -o "C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-7_CMakeCUDACompilerId.ptx"
-  #$ ptxas -arch=sm_52 -m64 -g --dont-merge-basicblocks --return-at-end "C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-7_CMakeCUDACompilerId.ptx"  -o "C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-10_CMakeCUDACompilerId.sm_52.cubin" 
-  #$ fatbinary -64 --ident="D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/3.23.0/CompilerIdCUDA/CMakeCUDACompilerId.cu" --cmdline="-g --dont-merge-basicblocks --return-at-end " --cicc-cmdline="-ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 " -g "--image3=kind=elf,sm=52,file=C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-10_CMakeCUDACompilerId.sm_52.cubin" "--image3=kind=ptx,sm=52,file=C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-7_CMakeCUDACompilerId.ptx" --embedded-fatbin="C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-4_CMakeCUDACompilerId.fatbin.c" 
-  #$ erase C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-4_CMakeCUDACompilerId.fatbin
-  #$ cl.exe @"C:\Users\11247\AppData\Local\Temp/tmpxft_0000cb14_00000000-11.res" > "C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-6_CMakeCUDACompilerId.cpp4.ii" 
+  #$ erase C:\Users\11247\AppData\Local\Temp/tmpxft_00004ebc_00000000-9.res
+  #$ cicc --microsoft_version=1929 --msvc_target_version=1929 --compiler_bindir "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/HostX86/x64/../../../../../../.." --sdk_dir "C:/Program Files (x86)/Windows Kits/10/" --display_error_number --orig_src_file_name "D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/3.23.0/CompilerIdCUDA/CMakeCUDACompilerId.cu" --orig_src_path_name "D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\3.23.0\CompilerIdCUDA\CMakeCUDACompilerId.cu" --allow_managed --debug_mode --sdk_dir "C:\Program Files (x86)\Windows Kits\10"  -arch compute_52 -m64 --no-version-ident -ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 --include_file_name "tmpxft_00004ebc_00000000-4_CMakeCUDACompilerId.fatbin.c" -g -O0 -tused --gen_module_id_file --module_id_file_name "C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-5_CMakeCUDACompilerId.module_id" --gen_c_file_name "C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-7_CMakeCUDACompilerId.cudafe1.c" --stub_file_name "C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-7_CMakeCUDACompilerId.cudafe1.stub.c" --gen_device_file_name "C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-7_CMakeCUDACompilerId.cudafe1.gpu"  "C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-8_CMakeCUDACompilerId.cpp1.ii" -o "C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-7_CMakeCUDACompilerId.ptx"
+  #$ ptxas -arch=sm_52 -m64 -g --dont-merge-basicblocks --return-at-end "C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-7_CMakeCUDACompilerId.ptx"  -o "C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-10_CMakeCUDACompilerId.sm_52.cubin" 
+  #$ fatbinary -64 --ident="D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/3.23.0/CompilerIdCUDA/CMakeCUDACompilerId.cu" --cmdline="-g --dont-merge-basicblocks --return-at-end " --cicc-cmdline="-ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 " -g "--image3=kind=elf,sm=52,file=C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-10_CMakeCUDACompilerId.sm_52.cubin" "--image3=kind=ptx,sm=52,file=C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-7_CMakeCUDACompilerId.ptx" --embedded-fatbin="C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-4_CMakeCUDACompilerId.fatbin.c" 
+  #$ erase C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-4_CMakeCUDACompilerId.fatbin
+  #$ cl.exe @"C:\Users\11247\AppData\Local\Temp/tmpxft_00004ebc_00000000-11.res" > "C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-6_CMakeCUDACompilerId.cpp4.ii" 
   CMakeCUDACompilerId.cu
-  #$ erase C:\Users\11247\AppData\Local\Temp/tmpxft_0000cb14_00000000-11.res
-  #$ cudafe++ --microsoft_version=1929 --msvc_target_version=1929 --compiler_bindir "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/HostX86/x64/../../../../../../.." --sdk_dir "C:/Program Files (x86)/Windows Kits/10/" --display_error_number --orig_src_file_name "D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/3.23.0/CompilerIdCUDA/CMakeCUDACompilerId.cu" --orig_src_path_name "D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\3.23.0\CompilerIdCUDA\CMakeCUDACompilerId.cu" --allow_managed --debug_mode --sdk_dir "C:\Program Files (x86)\Windows Kits\10" --m64 --parse_templates --gen_c_file_name "C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-7_CMakeCUDACompilerId.cudafe1.cpp" --stub_file_name "tmpxft_0000cb14_00000000-7_CMakeCUDACompilerId.cudafe1.stub.c" --module_id_file_name "C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-5_CMakeCUDACompilerId.module_id" "C:/Users/11247/AppData/Local/Temp/tmpxft_0000cb14_00000000-6_CMakeCUDACompilerId.cpp4.ii" 
-  #$ cl.exe @"C:\Users\11247\AppData\Local\Temp/tmpxft_0000cb14_00000000-12.res" -Fo"Debug/CMakeCUDACompilerId.cu.obj" 
-  tmpxft_0000cb14_00000000-7_CMakeCUDACompilerId.cudafe1.cpp
-  #$ erase C:\Users\11247\AppData\Local\Temp/tmpxft_0000cb14_00000000-12.res
+  #$ erase C:\Users\11247\AppData\Local\Temp/tmpxft_00004ebc_00000000-11.res
+  #$ cudafe++ --microsoft_version=1929 --msvc_target_version=1929 --compiler_bindir "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/HostX86/x64/../../../../../../.." --sdk_dir "C:/Program Files (x86)/Windows Kits/10/" --display_error_number --orig_src_file_name "D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/3.23.0/CompilerIdCUDA/CMakeCUDACompilerId.cu" --orig_src_path_name "D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\3.23.0\CompilerIdCUDA\CMakeCUDACompilerId.cu" --allow_managed --debug_mode --sdk_dir "C:\Program Files (x86)\Windows Kits\10" --m64 --parse_templates --gen_c_file_name "C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-7_CMakeCUDACompilerId.cudafe1.cpp" --stub_file_name "tmpxft_00004ebc_00000000-7_CMakeCUDACompilerId.cudafe1.stub.c" --module_id_file_name "C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-5_CMakeCUDACompilerId.module_id" "C:/Users/11247/AppData/Local/Temp/tmpxft_00004ebc_00000000-6_CMakeCUDACompilerId.cpp4.ii" 
+  #$ cl.exe @"C:\Users\11247\AppData\Local\Temp/tmpxft_00004ebc_00000000-12.res" -Fo"Debug/CMakeCUDACompilerId.cu.obj" 
+  tmpxft_00004ebc_00000000-7_CMakeCUDACompilerId.cudafe1.cpp
+  #$ erase C:\Users\11247\AppData\Local\Temp/tmpxft_00004ebc_00000000-12.res
 已完成生成项目“D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\3.23.0\CompilerIdCUDA\CompilerIdCUDA.vcxproj”(CudaBuildCore 个目标)的操作。
 Link:
   C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x64\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdCUDA.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\lib\x64" cudart_static.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdCUDA.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdCUDA.lib" /MACHINE:X64 Debug\CMakeCUDACompilerId.cu.obj
@@ -164,7 +164,7 @@ FinalizeBuildStatus:
     0 个警告
     0 个错误
 
-已用时间 00:00:01.63
+已用时间 00:00:01.72
 
 
 Compilation of the CUDA compiler identification source "CMakeCUDACompilerId.cu" produced "CompilerIdCUDA.exe"
@@ -185,47 +185,47 @@ Parsed CUDA nvcc include information from above output:
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_7d231.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && 用于 .NET Framework 的 Microsoft (R) 生成引擎版本 16.11.2+f32259642
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_4c84e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && 用于 .NET Framework 的 Microsoft (R) 生成引擎版本 16.11.2+f32259642
 版权所有(C) Microsoft Corporation。保留所有权利。
 
   用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.29.30138 版
   版权所有(C) Microsoft Corporation。保留所有权利。
   CMakeCCompilerABI.c
-  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_7d231.dir\Debug\\" /Fd"cmTC_7d231.dir\Debug\vc142.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\software\CMake\share\cmake-3.23\Modules\CMakeCCompilerABI.c"
-  cmTC_7d231.vcxproj -> D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\Debug\cmTC_7d231.exe
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_4c84e.dir\Debug\\" /Fd"cmTC_4c84e.dir\Debug\vc142.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\software\CMake\share\cmake-3.23\Modules\CMakeCCompilerABI.c"
+  cmTC_4c84e.vcxproj -> D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\Debug\cmTC_4c84e.exe
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_0f755.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && 用于 .NET Framework 的 Microsoft (R) 生成引擎版本 16.11.2+f32259642
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_02301.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && 用于 .NET Framework 的 Microsoft (R) 生成引擎版本 16.11.2+f32259642
 版权所有(C) Microsoft Corporation。保留所有权利。
 
   用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.29.30138 版
   版权所有(C) Microsoft Corporation。保留所有权利。
   CMakeCXXCompilerABI.cpp
-  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_0f755.dir\Debug\\" /Fd"cmTC_0f755.dir\Debug\vc142.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\software\CMake\share\cmake-3.23\Modules\CMakeCXXCompilerABI.cpp"
-  cmTC_0f755.vcxproj -> D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\Debug\cmTC_0f755.exe
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_02301.dir\Debug\\" /Fd"cmTC_02301.dir\Debug\vc142.pdb" /external:W3 /Gd /TP /errorReport:queue "D:\software\CMake\share\cmake-3.23\Modules\CMakeCXXCompilerABI.cpp"
+  cmTC_02301.vcxproj -> D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\Debug\cmTC_02301.exe
 
 
 
 Detecting CUDA compiler ABI info compiled with the following output:
 Change Dir: D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_ff596.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && 用于 .NET Framework 的 Microsoft (R) 生成引擎版本 16.11.2+f32259642
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_94a27.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && 用于 .NET Framework 的 Microsoft (R) 生成引擎版本 16.11.2+f32259642
 版权所有(C) Microsoft Corporation。保留所有权利。
 
   Compiling CUDA source file ..\..\..\..\..\..\software\CMake\share\cmake-3.23\Modules\CMakeCUDACompilerABI.cu...
   
-  D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\bin\nvcc.exe" -gencode=arch=compute_52,code=\"sm_52,compute_52\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x64" -x cu    -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include"     --keep-dir x64\Debug  -maxrregcount=0  --machine 64 --compile -cudart static -Xcompiler="/EHsc -Zi -Ob0 -v" -g  -D_WINDOWS -D"CMAKE_INTDIR=\"Debug\"" -D_MBCS -D"CMAKE_INTDIR=\"Debug\"" -Xcompiler "/EHsc /W3 /nologo /Od /FdcmTC_ff596.dir\Debug\vc142.pdb /FS /Zi /RTC1 /MDd /GR" -o cmTC_ff596.dir\Debug\CMakeCUDACompilerABI.obj "D:\software\CMake\share\cmake-3.23\Modules\CMakeCUDACompilerABI.cu" 
-cl : 命令行 warning D9002: 忽略未知选项“-v” [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_ff596.vcxproj]
-cl : 命令行 warning D9002: 忽略未知选项“-v” [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_ff596.vcxproj]
+  D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\bin\nvcc.exe" -gencode=arch=compute_52,code=\"sm_52,compute_52\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x64" -x cu    -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include"     --keep-dir x64\Debug  -maxrregcount=0  --machine 64 --compile -cudart static -Xcompiler="/EHsc -Zi -Ob0 -v" -g  -D_WINDOWS -D"CMAKE_INTDIR=\"Debug\"" -D_MBCS -D"CMAKE_INTDIR=\"Debug\"" -Xcompiler "/EHsc /W3 /nologo /Od /FdcmTC_94a27.dir\Debug\vc142.pdb /FS /Zi /RTC1 /MDd /GR" -o cmTC_94a27.dir\Debug\CMakeCUDACompilerABI.obj "D:\software\CMake\share\cmake-3.23\Modules\CMakeCUDACompilerABI.cu" 
+cl : 命令行 warning D9002: 忽略未知选项“-v” [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_94a27.vcxproj]
+cl : 命令行 warning D9002: 忽略未知选项“-v” [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_94a27.vcxproj]
   CMakeCUDACompilerABI.cu
-cl : 命令行 warning D9002: 忽略未知选项“-v” [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_ff596.vcxproj]
-LINK : warning LNK4044: 无法识别的选项“/v”；已忽略 [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_ff596.vcxproj]
-    正在创建库 D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/CMakeTmp/Debug/cmTC_ff596.lib 和对象 D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/CMakeTmp/Debug/cmTC_ff596.exp
-  cmTC_ff596.vcxproj -> D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\Debug\cmTC_ff596.exe
+cl : 命令行 warning D9002: 忽略未知选项“-v” [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_94a27.vcxproj]
+LINK : warning LNK4044: 无法识别的选项“/v”；已忽略 [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_94a27.vcxproj]
+    正在创建库 D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/CMakeTmp/Debug/cmTC_94a27.lib 和对象 D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/CMakeTmp/Debug/cmTC_94a27.exp
+  cmTC_94a27.vcxproj -> D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\Debug\cmTC_94a27.exe
 
 
 
@@ -237,19 +237,19 @@ Parsed CUDA implicit link information from above output:
   link line regex: [^( *|.*[/\])(link\.exe|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_ff596.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && 用于 .NET Framework 的 Microsoft (R) 生成引擎版本 16.11.2+f32259642]
+  ignore line: [Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_94a27.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && 用于 .NET Framework 的 Microsoft (R) 生成引擎版本 16.11.2+f32259642]
   ignore line: [版权所有(C) Microsoft Corporation。保留所有权利。]
   ignore line: []
   ignore line: [  Compiling CUDA source file ..\..\..\..\..\..\software\CMake\share\cmake-3.23\Modules\CMakeCUDACompilerABI.cu...]
   ignore line: [  ]
-  ignore line: [  D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\bin\nvcc.exe" -gencode=arch=compute_52 code=\"sm_52 compute_52\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x64" -x cu    -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include"     --keep-dir x64\Debug  -maxrregcount=0  --machine 64 --compile -cudart static -Xcompiler="/EHsc -Zi -Ob0 -v" -g  -D_WINDOWS -D"CMAKE_INTDIR=\"Debug\"" -D_MBCS -D"CMAKE_INTDIR=\"Debug\"" -Xcompiler "/EHsc /W3 /nologo /Od /FdcmTC_ff596.dir\Debug\vc142.pdb /FS /Zi /RTC1 /MDd /GR" -o cmTC_ff596.dir\Debug\CMakeCUDACompilerABI.obj "D:\software\CMake\share\cmake-3.23\Modules\CMakeCUDACompilerABI.cu" ]
-  ignore line: [cl : 命令行 warning D9002: 忽略未知选项“-v” [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_ff596.vcxproj]]
-  ignore line: [cl : 命令行 warning D9002: 忽略未知选项“-v” [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_ff596.vcxproj]]
+  ignore line: [  D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\bin\nvcc.exe" -gencode=arch=compute_52 code=\"sm_52 compute_52\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x64" -x cu    -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.5\include"     --keep-dir x64\Debug  -maxrregcount=0  --machine 64 --compile -cudart static -Xcompiler="/EHsc -Zi -Ob0 -v" -g  -D_WINDOWS -D"CMAKE_INTDIR=\"Debug\"" -D_MBCS -D"CMAKE_INTDIR=\"Debug\"" -Xcompiler "/EHsc /W3 /nologo /Od /FdcmTC_94a27.dir\Debug\vc142.pdb /FS /Zi /RTC1 /MDd /GR" -o cmTC_94a27.dir\Debug\CMakeCUDACompilerABI.obj "D:\software\CMake\share\cmake-3.23\Modules\CMakeCUDACompilerABI.cu" ]
+  ignore line: [cl : 命令行 warning D9002: 忽略未知选项“-v” [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_94a27.vcxproj]]
+  ignore line: [cl : 命令行 warning D9002: 忽略未知选项“-v” [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_94a27.vcxproj]]
   ignore line: [  CMakeCUDACompilerABI.cu]
-  ignore line: [cl : 命令行 warning D9002: 忽略未知选项“-v” [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_ff596.vcxproj]]
-  ignore line: [LINK : warning LNK4044: 无法识别的选项“/v”；已忽略 [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_ff596.vcxproj]]
-  ignore line: [    正在创建库 D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/CMakeTmp/Debug/cmTC_ff596.lib 和对象 D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/CMakeTmp/Debug/cmTC_ff596.exp]
-  ignore line: [  cmTC_ff596.vcxproj -> D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\Debug\cmTC_ff596.exe]
+  ignore line: [cl : 命令行 warning D9002: 忽略未知选项“-v” [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_94a27.vcxproj]]
+  ignore line: [LINK : warning LNK4044: 无法识别的选项“/v”；已忽略 [D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\cmTC_94a27.vcxproj]]
+  ignore line: [    正在创建库 D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/CMakeTmp/Debug/cmTC_94a27.lib 和对象 D:/myregion/LearnOptiX/SrRenderer/build/CMakeFiles/CMakeTmp/Debug/cmTC_94a27.exp]
+  ignore line: [  cmTC_94a27.vcxproj -> D:\myregion\LearnOptiX\SrRenderer\build\CMakeFiles\CMakeTmp\Debug\cmTC_94a27.exe]
   ignore line: []
   ignore line: []
   implicit libs: []

@@ -28,6 +28,16 @@ public:
     }
 
     template<typename T>
+    inline void upload(const T* t, int count)
+    {
+        if(d_ptr != nullptr)
+            CUDA_CHECK(cudaFree(d_ptr));
+        size = count * sizeof(T);
+        CUDA_CHECK(cudaMalloc(&d_ptr, size));
+        CUDA_CHECK(cudaMemcpy(d_ptr, t, size, cudaMemcpyHostToDevice));
+    }
+
+    template<typename T>
     inline void download(T* t)
     {
         if(d_ptr == nullptr) return;

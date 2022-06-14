@@ -79,6 +79,7 @@ void Intergrator::createModule(const ModuleDesc& moduleDesc, const OptixPipeline
 
         OPTIX_LOG(optixProgramGroupCreate(optixContext, &pgDesc, 1, &pgOptions, log, &logSize, &raygenPG));
 
+        raygenPGs.push_back(raygenPG);
         programGroups.push_back(raygenPG);
     }
 
@@ -96,6 +97,7 @@ void Intergrator::createModule(const ModuleDesc& moduleDesc, const OptixPipeline
 
             OPTIX_LOG(optixProgramGroupCreate(optixContext, &pgDesc, 1, &pgOptions, log, &logSize, &missPG));
         
+            missPGs.push_back(missPG);
             programGroups.push_back(missPG);
         }
     }
@@ -116,6 +118,7 @@ void Intergrator::createModule(const ModuleDesc& moduleDesc, const OptixPipeline
 
             OPTIX_LOG(optixProgramGroupCreate(optixContext, &pgDesc, 1, &pgOptions, log, &logSize, &hitgroupPG));
         
+            hitgroupPGs.push_back(hitgroupPG);
             programGroups.push_back(hitgroupPG);
         }
     }
@@ -148,7 +151,7 @@ void Intergrator::createPipelines()
 }
 
 
-OptixTraversableHandle Intergrator::buildAccel()
+void Intergrator::buildAccel()
 {
     int meshNum = (int)model->meshes.size();
 
@@ -156,8 +159,6 @@ OptixTraversableHandle Intergrator::buildAccel()
     indexBuffer.resize(meshNum);
     texcoordBuffer.resize(meshNum);
     normalBuffer.resize(meshNum);
-
-    OptixTraversableHandle asHandle { 0 };
 
     std::vector<OptixBuildInput> triangleInput(meshNum);
     std::vector<CUdeviceptr> d_vertices(meshNum);
@@ -218,7 +219,7 @@ OptixTraversableHandle Intergrator::buildAccel()
 
     OPTIX_CHECK(optixAccelBuild(
         optixContext, 
-        stream, 
+        stream,
         &accelOptions, 
         triangleInput.data(), 
         meshNum, 
@@ -226,7 +227,7 @@ OptixTraversableHandle Intergrator::buildAccel()
         tempBuffer.size, 
         (CUdeviceptr)outputBuffer.d_ptr, 
         outputBuffer.size, 
-        &asHandle, 
+        &traversable, 
         &emitDesc, 
         1
     ));
@@ -237,16 +238,14 @@ OptixTraversableHandle Intergrator::buildAccel()
 
     cudaBuffer asBuffer;
     asBuffer.alloc(compactedSize);
-    OPTIX_CHECK(optixAccelCompact(optixContext, stream, asHandle, (CUdeviceptr)asBuffer.d_ptr, asBuffer.size, &asHandle));
+    OPTIX_CHECK(optixAccelCompact(optixContext, stream, traversable, (CUdeviceptr)asBuffer.d_ptr, asBuffer.size, &traversable));
     CUDA_SYNC_CHECK();
-    
-    return asHandle;
 }
 
 
 void Intergrator::createTextures() 
 {
-    int numTextures = model->textures.size();
+    int numTextures = (int)model->textures.size();
 
     textureArrays.resize(numTextures);
     textureObjects.resize(numTextures);
@@ -290,38 +289,106 @@ void Intergrator::createTextures()
 }
 
 
-
-struct __align__(OPTIX_SBT_RECORD_ALIGNMENT) RaygenRecord
+template<class T>
+struct __align__(OPTIX_SBT_RECORD_ALIGNMENT) SBTRecord
 {
     __align__(OPTIX_SBT_RECORD_ALIGNMENT) char header[OPTIX_SBT_RECORD_HEADER_SIZE];
-    void* data;
+    T data;
 };
 
-struct __align__(OPTIX_SBT_RECORD_ALIGNMENT) MissRecord
+struct RaygenData 
 {
-    __align__(OPTIX_SBT_RECORD_ALIGNMENT) char header[OPTIX_SBT_RECORD_HEADER_SIZE];
-    void* data;
+    float3 background;
+};
+struct MissData {};
+struct HitgroupData
+{
+    float3 color;
+    float3* vertex;
+    uint3* index;
+    float3* normal;
+    float2* texcoord;
+
+    bool hasTexture;
+    cudaTextureObject_t texture;
+
+    bool isLight;
+    float3 emittance;
 };
 
-struct __align__(OPTIX_SBT_RECORD_ALIGNMENT) HitgroupRecord
-{
-    __align__(OPTIX_SBT_RECORD_ALIGNMENT) char header[OPTIX_SBT_RECORD_HEADER_SIZE];
-    // TriangleMeshSBTData data;
-};
+typedef SBTRecord<RaygenData> RaygenSBTRecord;
+typedef SBTRecord<MissData> MissSBTRecord;
+typedef SBTRecord<HitgroupData> HitgroupSBTRecord;
+
 
 void Intergrator::buildSBT()
 {
-    std::vector<RaygenRecord> raygenRecords;
+    std::vector<RaygenSBTRecord> raygenRecords;
+    for(int i = 0; i < raygenPGs.size(); i++)
+    {
+        RaygenSBTRecord rec;
+        OPTIX_CHECK(optixSbtRecordPackHeader(raygenPGs[i], &rec));
+        raygenRecords.push_back(rec);
+    }
+    raygenRecordsBuffer.upload(raygenRecords);
+    sbt.raygenRecord = (CUdeviceptr)raygenRecordsBuffer.d_ptr;
+
+    std::vector<MissSBTRecord> missRecords;
+    for(int i = 0; i < missPGs.size(); i++)
+    {
+        MissSBTRecord rec;
+        OPTIX_CHECK(optixSbtRecordPackHeader(missPGs[i], &rec));
+        missRecords.push_back(rec);
+    }
+    missRecordsBuffer.upload(missRecords);
+    sbt.missRecordBase = (CUdeviceptr)missRecordsBuffer.d_ptr;
+    sbt.missRecordStrideInBytes = sizeof(MissSBTRecord);
+    sbt.missRecordCount = (unsigned)missRecords.size();
+
+    int meshNum = (int)model->meshes.size();
+    std::vector<HitgroupSBTRecord> hitgroupRecords;
+    for(int j = 0; j < meshNum; j++)
+    {
+        for(int i = 0; i < hitgroupPGs.size(); i++)
+        {
+            HitgroupSBTRecord rec;
+            OPTIX_CHECK(optixSbtRecordPackHeader(hitgroupPGs[i], &rec));
+
+            rec.data.vertex = (float3*)vertexBuffer[j].d_ptr;
+            rec.data.index = (uint3*)indexBuffer[j].d_ptr;
+            rec.data.normal = (float3*)normalBuffer[j].d_ptr;
+            rec.data.texcoord = (float2*)texcoordBuffer[j].d_ptr;
+            rec.data.color = model->meshes[j]->diffuse;
+            if(length(model->meshes[j]->emittance) > 1e-5)
+            {
+                rec.data.isLight = true;
+                rec.data.emittance = model->meshes[j]->emittance;
+            }
+            else rec.data.isLight = false;
+            if(model->meshes[j]->textureId >= 0)
+            {
+                rec.data.hasTexture = true;
+                rec.data.texture = textureObjects[model->meshes[j]->textureId];
+            }
+            else rec.data.hasTexture = false;
+
+            hitgroupRecords.push_back(rec);
+        }
+    }
+    hitgroupRecordsBuffer.upload(hitgroupRecords);
+    sbt.hitgroupRecordBase = (CUdeviceptr)hitgroupRecordsBuffer.d_ptr;
+    sbt.hitgroupRecordStrideInBytes = sizeof(HitgroupSBTRecord);
+    sbt.hitgroupRecordCount = (unsigned)hitgroupRecords.size();
 }
 
 
 
-Intergrator::Intergrator(const Model* _model) : model(_model)
+Intergrator::Intergrator(const Model* _model, int _w, int _h) : model(_model), width(_w), height(_h)
 {
     
     moduleDescs.push_back(
         {
-            "../../../src/Intergrator/shader/bdpt.ptx",
+            "../../../src/Intergrator/shader/test.ptx",
             "__raygen__renderFrame",
             {"__miss__radiance", "__miss__shadow"},
             {
@@ -351,4 +418,32 @@ Intergrator::Intergrator(const Model* _model) : model(_model)
     buildSBT();
 
     std::cout << "Optix 7 Renderer fully set up!" << std::endl;
+}
+
+
+void Intergrator::render()
+{
+    colorBuffer.alloc(width * height * sizeof(float4));
+    
+    LaunchParams launchParams(width, height, (float4*)colorBuffer.d_ptr, traversable);
+    cudaBuffer launchParamsBuffer;
+    launchParamsBuffer.upload(&launchParams, 1);
+
+    OPTIX_CHECK(optixLaunch(
+        pipelines[0],
+        stream,
+        (CUdeviceptr)launchParamsBuffer.d_ptr,
+        launchParamsBuffer.size,
+        &sbt,
+        width,
+        height,
+        1
+    ));
+
+    CUDA_SYNC_CHECK();
+}
+
+void Intergrator::download(float4* pixels)
+{
+    colorBuffer.download(pixels);
 }

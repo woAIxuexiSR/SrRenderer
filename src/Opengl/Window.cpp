@@ -102,7 +102,7 @@ void Window::createVAO()
 }
 
 
-unsigned int Window::loadTexture(const std::vector<float>& pixels, int pw, int ph)
+unsigned int Window::loadTexture(const std::vector<float4>& pixels, int pw, int ph)
 {
 	unsigned int texture;
 	glGenTextures(1, &texture);
@@ -186,7 +186,7 @@ bool Window::shouldClose()
 }
 
 
-void Window::run(const std::vector<float>& pixels, int pw, int ph)
+void Window::run(const std::vector<float4>& pixels, int pw, int ph)
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();

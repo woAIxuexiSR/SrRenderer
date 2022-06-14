@@ -11,6 +11,8 @@
 #include "cudaBuffer.h"
 #include "Model.h"
 
+#include "LaunchParams.h"
+
 
 class ModuleDesc
 {
@@ -21,6 +23,7 @@ public:
     std::vector<std::pair<std::string, std::string> > hitgroupNames;
 };
 
+
 class Intergrator
 {
 private:
@@ -28,6 +31,9 @@ private:
 
     CUstream stream;
     OptixDeviceContext optixContext;
+    std::vector<OptixProgramGroup> raygenPGs;
+    std::vector<OptixProgramGroup> missPGs;
+    std::vector<OptixProgramGroup> hitgroupPGs;
     std::vector<OptixPipeline> pipelines;
 
     const Model* model;
@@ -38,6 +44,17 @@ private:
     
     std::vector<cudaArray_t> textureArrays;
     std::vector<cudaTextureObject_t> textureObjects;
+
+    OptixShaderBindingTable sbt = {};
+    cudaBuffer raygenRecordsBuffer;
+    cudaBuffer missRecordsBuffer;
+    cudaBuffer hitgroupRecordsBuffer;
+
+    OptixTraversableHandle traversable = {};
+
+    int width, height;
+    cudaBuffer colorBuffer;
+
 	
     void initOptix();
 	
@@ -45,70 +62,13 @@ private:
     void createModule(const ModuleDesc& moduleDesc, const OptixPipelineCompileOptions& pipelineCompileOptions, std::vector<OptixProgramGroup>& programGroups);
 	void createPipelines();
 
-    OptixTraversableHandle buildAccel();
+    void buildAccel();
 	void createTextures();
 	void buildSBT();
 
 public:
-    Intergrator(const Model* _model);
+    Intergrator(const Model* _model, int _w, int _h);
+
+    void render();
+    void download(float4* pixels);
 };
-
-
-// class Renderer
-// {
-// private:
-// 	CUcontext cudaContext;
-// 	CUstream stream;
-// 	cudaDeviceProp deviceProps;
-
-// 	OptixDeviceContext optixContext;
-
-// 	OptixPipeline pipeline;
-// 	OptixPipelineCompileOptions pipelineCompileOptions = {};
-// 	OptixPipelineLinkOptions pipelineLinkOptions = {};
-
-// 	OptixModule module;
-// 	OptixModuleCompileOptions moduleCompileOptions = {};
-
-// 	std::vector<OptixProgramGroup> raygenPGs;
-// 	CUDABuffer raygenRecordsBuffer;
-// 	std::vector<OptixProgramGroup> missPGs;
-// 	CUDABuffer missRecordsBuffer;
-// 	std::vector<OptixProgramGroup> hitgroupPGs;
-// 	CUDABuffer hitgroupRecordsBuffer;
-
-// 	OptixShaderBindingTable sbt = {};
-
-// 	LaunchParams launchParams;
-// 	CUDABuffer launchParamsBuffer;
-
-// 	CUDABuffer colorBuffer;
-
-// 	CUDABuffer denoisedBuffer;
-// 	OptixDenoiser denoiser = nullptr;
-// 	CUDABuffer denoiserScratch;
-// 	CUDABuffer denoiserState;
-
-// 	Camera lastSetCamera;
-
-// 	const Model* model;
-// 	std::vector<CUDABuffer> vertexBuffer;
-// 	std::vector<CUDABuffer> indexBuffer;
-// 	std::vector<CUDABuffer> texcoordBuffer;
-// 	std::vector<CUDABuffer> normalBuffer;
-// 	CUDABuffer asBuffer;
-
-// 	std::vector<cudaArray_t> textureArrays;
-// 	std::vector<cudaTextureObject_t> textureObjects;
-
-
-
-// public:
-// 	bool denoiserOn = true;
-
-// 	Renderer(const Model* _model, const QuadLight* _light);
-// 	void render();
-// 	void resize(int _width, int _height);
-// 	void downloadPixels(vec4 h_pixels[]);
-// 	void setCamera(const Camera& _camera);
-// };
