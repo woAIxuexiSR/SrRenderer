@@ -1,1 +1,0 @@
-add_library(window STATIC "Window.cpp")

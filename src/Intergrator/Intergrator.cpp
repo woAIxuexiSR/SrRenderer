@@ -1,29 +1,22 @@
 #include "Intergrator.h"
 #include <optix_function_table_definition.h>
 
+extern "C" const char simple[];
 
-std::string readPtxFromFile(const std::string& filename)
-{
-    std::fstream fs(filename, std::ios::in);
-    if (!fs.is_open())
-    {
-        std::cout << "Failed to open file " << filename << std::endl;
-        exit(-1);
-    }
-    std::stringstream ss;
-    ss << fs.rdbuf();
-    fs.close();
-    return ss.str();
-}
-
+/* the only allowed shader function names */
+const std::string raygenName = "__raygen__";
+const std::string missName[2] = {"__miss__radiance", "__miss__shadow"};
+const std::pair<std::string, std::string> hitgroupName[2] = {
+    {"__closesthit__radiance", "__anyhit__radiance"},
+    {"__closesthit__shadow", "__anyhit__shadow"}};
 
 void Intergrator::initOptix()
 {
-    CUDA_CHECK(cudaFree(0));
+    checkCudaErrors(cudaFree(0));
 
     int numDevices;
-    CUDA_CHECK(cudaGetDeviceCount(&numDevices));
-    if(numDevices == 0)
+    checkCudaErrors(cudaGetDeviceCount(&numDevices));
+    if (numDevices == 0)
     {
         std::cout << "no CUDA capable devices found!" << std::endl;
         exit(-1);
@@ -34,15 +27,14 @@ void Intergrator::initOptix()
     std::cout << "successfully initialized optix ..." << std::endl;
 }
 
-
 void Intergrator::createContext()
 {
     const int deviceID = 0;
-    CUDA_CHECK(cudaSetDevice(deviceID));
-    CUDA_CHECK(cudaStreamCreate(&stream));
+    checkCudaErrors(cudaSetDevice(deviceID));
+    checkCudaErrors(cudaStreamCreate(&stream));
 
     cudaDeviceProp deviceProps;
-    CUDA_CHECK(cudaGetDeviceProperties(&deviceProps, deviceID));
+    checkCudaErrors(cudaGetDeviceProperties(&deviceProps, deviceID));
     std::cout << "running on device " << deviceProps.name << std::endl;
 
     CUcontext cudaContext;
@@ -51,8 +43,7 @@ void Intergrator::createContext()
     OPTIX_CHECK(optixDeviceContextCreate(cudaContext, 0, &optixContext));
 }
 
-
-void Intergrator::createModule(const ModuleDesc& moduleDesc, const OptixPipelineCompileOptions& pipelineCompileOptions, std::vector<OptixProgramGroup>& programGroups) 
+void Intergrator::createModule(const std::string &ptx, const OptixPipelineCompileOptions &pipelineCompileOptions, std::vector<OptixProgramGroup> &programGroups)
 {
     // create module
     OptixModule module;
@@ -62,68 +53,62 @@ void Intergrator::createModule(const ModuleDesc& moduleDesc, const OptixPipeline
     moduleCompileOptions.optLevel = OPTIX_COMPILE_OPTIMIZATION_DEFAULT;
     moduleCompileOptions.debugLevel = OPTIX_COMPILE_DEBUG_LEVEL_NONE;
 
-    std::string ptx = readPtxFromFile(moduleDesc.filename);
-
-
     OPTIX_LOG(optixModuleCreateFromPTX(optixContext, &moduleCompileOptions, &pipelineCompileOptions, ptx.c_str(), ptx.size(), log, &logSize, &module));
+
+    ModuleProgramGroup modulePG;
 
     // create raygen programs
     {
-        OptixProgramGroup raygenPG;
         OptixProgramGroupOptions pgOptions = {};
         OptixProgramGroupDesc pgDesc = {};
 
         pgDesc.kind = OPTIX_PROGRAM_GROUP_KIND_RAYGEN;
         pgDesc.raygen.module = module;
-        pgDesc.raygen.entryFunctionName = moduleDesc.raygenName.c_str();
+        pgDesc.raygen.entryFunctionName = raygenName.c_str();
 
-        OPTIX_LOG(optixProgramGroupCreate(optixContext, &pgDesc, 1, &pgOptions, log, &logSize, &raygenPG));
+        OPTIX_LOG(optixProgramGroupCreate(optixContext, &pgDesc, 1, &pgOptions, log, &logSize, &modulePG.raygenPG));
 
-        raygenPGs.push_back(raygenPG);
-        programGroups.push_back(raygenPG);
+        programGroups.push_back(modulePG.raygenPG);
     }
 
     // create miss programs
     {
-        for(int i = 0; i < moduleDesc.missNames.size(); i++)
+        for (int i = 0; i < 2; i++)
         {
-            OptixProgramGroup missPG;
             OptixProgramGroupOptions pgOptions = {};
             OptixProgramGroupDesc pgDesc = {};
 
             pgDesc.kind = OPTIX_PROGRAM_GROUP_KIND_MISS;
             pgDesc.miss.module = module;
-            pgDesc.miss.entryFunctionName = moduleDesc.missNames[i].c_str();
+            pgDesc.miss.entryFunctionName = missName[i].c_str();
 
-            OPTIX_LOG(optixProgramGroupCreate(optixContext, &pgDesc, 1, &pgOptions, log, &logSize, &missPG));
-        
-            missPGs.push_back(missPG);
-            programGroups.push_back(missPG);
+            OPTIX_LOG(optixProgramGroupCreate(optixContext, &pgDesc, 1, &pgOptions, log, &logSize, &modulePG.missPGs[i]));
+
+            programGroups.push_back(modulePG.missPGs[i]);
         }
     }
 
     // create hitgroup programs
     {
-        for(int i = 0; i < moduleDesc.hitgroupNames.size(); i++)
+        for (int i = 0; i < 2; i++)
         {
-            OptixProgramGroup hitgroupPG;
             OptixProgramGroupOptions pgOptions = {};
             OptixProgramGroupDesc pgDesc = {};
 
             pgDesc.kind = OPTIX_PROGRAM_GROUP_KIND_HITGROUP;
             pgDesc.hitgroup.moduleCH = module;
-            pgDesc.hitgroup.entryFunctionNameCH = moduleDesc.hitgroupNames[i].first.c_str();
+            pgDesc.hitgroup.entryFunctionNameCH = hitgroupName[i].first.c_str();
             pgDesc.hitgroup.moduleAH = module;
-            pgDesc.hitgroup.entryFunctionNameAH = moduleDesc.hitgroupNames[i].second.c_str();
+            pgDesc.hitgroup.entryFunctionNameAH = hitgroupName[i].second.c_str();
 
-            OPTIX_LOG(optixProgramGroupCreate(optixContext, &pgDesc, 1, &pgOptions, log, &logSize, &hitgroupPG));
-        
-            hitgroupPGs.push_back(hitgroupPG);
-            programGroups.push_back(hitgroupPG);
+            OPTIX_LOG(optixProgramGroupCreate(optixContext, &pgDesc, 1, &pgOptions, log, &logSize, &modulePG.hitgroupPGs[i]));
+
+            programGroups.push_back(modulePG.hitgroupPGs[i]);
         }
     }
-}
 
+    modulePGs.push_back(modulePG);
+}
 
 void Intergrator::createPipelines()
 {
@@ -133,23 +118,22 @@ void Intergrator::createPipelines()
     pipelineCompileOptions.numPayloadValues = 2;
     pipelineCompileOptions.numAttributeValues = 2;
     pipelineCompileOptions.exceptionFlags = OPTIX_EXCEPTION_FLAG_NONE;
-    pipelineCompileOptions.pipelineLaunchParamsVariableName = "optixLaunchParams";
+    pipelineCompileOptions.pipelineLaunchParamsVariableName = "launchParams";
 
     OptixPipelineLinkOptions pipelineLinkOptions = {};
     pipelineLinkOptions.maxTraceDepth = 2;
 
-    pipelines.resize(moduleDescs.size());
-    for(int i = 0; i < moduleDescs.size(); i++)
+    pipelines.resize(modulePTXs.size());
+    for (size_t i = 0; i < modulePTXs.size(); i++)
     {
         std::vector<OptixProgramGroup> programGroups;
-        createModule(moduleDescs[i], pipelineCompileOptions, programGroups);
+        createModule(modulePTXs[i], pipelineCompileOptions, programGroups);
 
         OPTIX_LOG(optixPipelineCreate(optixContext, &pipelineCompileOptions, &pipelineLinkOptions, programGroups.data(), (unsigned)programGroups.size(), log, &logSize, &pipelines[i]));
 
         OPTIX_CHECK(optixPipelineSetStackSize(pipelines[i], 2048, 2048, 2048, 1));
     }
 }
-
 
 void Intergrator::buildAccel()
 {
@@ -165,13 +149,15 @@ void Intergrator::buildAccel()
     std::vector<CUdeviceptr> d_indices(meshNum);
     std::vector<uint32_t> triangleInputFlags(meshNum);
 
-    for(int i = 0; i < meshNum; i++)
+    for (int i = 0; i < meshNum; i++)
     {
-        TriangleMesh& mesh = *(model->meshes[i]);
+        TriangleMesh &mesh = *(model->meshes[i]);
         vertexBuffer[i].upload(mesh.vertex);
         indexBuffer[i].upload(mesh.index);
-        if(!mesh.texcoord.empty()) texcoordBuffer[i].upload(mesh.texcoord);
-        if(!mesh.normal.empty()) normalBuffer[i].upload(mesh.normal);
+        if (!mesh.texcoord.empty())
+            texcoordBuffer[i].upload(mesh.texcoord);
+        if (!mesh.normal.empty())
+            normalBuffer[i].upload(mesh.normal);
 
         triangleInput[i] = {};
         triangleInput[i].type = OPTIX_BUILD_INPUT_TYPE_TRIANGLES;
@@ -218,20 +204,19 @@ void Intergrator::buildAccel()
     outputBuffer.alloc(blasBufferSizes.outputSizeInBytes);
 
     OPTIX_CHECK(optixAccelBuild(
-        optixContext, 
+        optixContext,
         stream,
-        &accelOptions, 
-        triangleInput.data(), 
-        meshNum, 
-        (CUdeviceptr)tempBuffer.d_ptr, 
-        tempBuffer.size, 
-        (CUdeviceptr)outputBuffer.d_ptr, 
-        outputBuffer.size, 
-        &traversable, 
-        &emitDesc, 
-        1
-    ));
-    CUDA_SYNC_CHECK();
+        &accelOptions,
+        triangleInput.data(),
+        meshNum,
+        (CUdeviceptr)tempBuffer.d_ptr,
+        tempBuffer.size,
+        (CUdeviceptr)outputBuffer.d_ptr,
+        outputBuffer.size,
+        &traversable,
+        &emitDesc,
+        1));
+    checkCudaErrors(cudaDeviceSynchronize());
 
     uint64_t compactedSize;
     compactedSizeBuffer.download(&compactedSize);
@@ -239,32 +224,31 @@ void Intergrator::buildAccel()
     cudaBuffer asBuffer;
     asBuffer.alloc(compactedSize);
     OPTIX_CHECK(optixAccelCompact(optixContext, stream, traversable, (CUdeviceptr)asBuffer.d_ptr, asBuffer.size, &traversable));
-    CUDA_SYNC_CHECK();
+    checkCudaErrors(cudaDeviceSynchronize());
 }
 
-
-void Intergrator::createTextures() 
+void Intergrator::createTextures()
 {
     int numTextures = (int)model->textures.size();
 
     textureArrays.resize(numTextures);
     textureObjects.resize(numTextures);
 
-    for(int i = 0; i < numTextures; i++)
+    for (int i = 0; i < numTextures; i++)
     {
-        Texture* texture = model->textures[i];
+        Texture *texture = model->textures[i];
 
         cudaChannelFormatDesc channel_desc = cudaCreateChannelDesc<uchar4>();
-        
+
         int width = texture->resolution.x;
         int height = texture->resolution.y;
         int nComponents = 4;
         int pitch = width * nComponents * sizeof(unsigned char);
 
         cudaArray_t &pixelArray = textureArrays[i];
-        CUDA_CHECK(cudaMallocArray(&pixelArray, &channel_desc, width, height));
-        CUDA_CHECK(cudaMemcpy2DToArray(pixelArray, 0, 0, texture->pixels, pitch, pitch, height, cudaMemcpyHostToDevice));
-    
+        checkCudaErrors(cudaMallocArray(&pixelArray, &channel_desc, width, height));
+        checkCudaErrors(cudaMemcpy2DToArray(pixelArray, 0, 0, texture->pixels, pitch, pitch, height, cudaMemcpyHostToDevice));
+
         cudaResourceDesc res_desc = {};
         res_desc.resType = cudaResourceTypeArray;
         res_desc.res.array.array = pixelArray;
@@ -283,121 +267,81 @@ void Intergrator::createTextures()
         tex_desc.sRGB = 0;
 
         cudaTextureObject_t cuda_tex = 0;
-        CUDA_CHECK(cudaCreateTextureObject(&cuda_tex, &res_desc, &tex_desc, nullptr));
+        checkCudaErrors(cudaCreateTextureObject(&cuda_tex, &res_desc, &tex_desc, nullptr));
         textureObjects[i] = cuda_tex;
     }
 }
 
-
-template<class T>
-struct __align__(OPTIX_SBT_RECORD_ALIGNMENT) SBTRecord
-{
-    __align__(OPTIX_SBT_RECORD_ALIGNMENT) char header[OPTIX_SBT_RECORD_HEADER_SIZE];
-    T data;
-};
-
-struct RaygenData 
-{
-    float3 background;
-};
-struct MissData {};
-struct HitgroupData
-{
-    float3 color;
-    float3* vertex;
-    uint3* index;
-    float3* normal;
-    float2* texcoord;
-
-    bool hasTexture;
-    cudaTextureObject_t texture;
-
-    bool isLight;
-    float3 emittance;
-};
-
-typedef SBTRecord<RaygenData> RaygenSBTRecord;
-typedef SBTRecord<MissData> MissSBTRecord;
-typedef SBTRecord<HitgroupData> HitgroupSBTRecord;
-
-
 void Intergrator::buildSBT()
 {
-    std::vector<RaygenSBTRecord> raygenRecords;
-    for(int i = 0; i < raygenPGs.size(); i++)
-    {
-        RaygenSBTRecord rec;
-        OPTIX_CHECK(optixSbtRecordPackHeader(raygenPGs[i], &rec));
-        raygenRecords.push_back(rec);
-    }
-    raygenRecordsBuffer.upload(raygenRecords);
-    sbt.raygenRecord = (CUdeviceptr)raygenRecordsBuffer.d_ptr;
+    sbts.resize(modulePGs.size());
+    raygenRecordsBuffer.resize(modulePGs.size());
+    missRecordsBuffer.resize(modulePGs.size());
+    hitgroupRecordsBuffer.resize(modulePGs.size());
 
-    std::vector<MissSBTRecord> missRecords;
-    for(int i = 0; i < missPGs.size(); i++)
+    for (int i = 0; i < modulePGs.size(); i++)
     {
-        MissSBTRecord rec;
-        OPTIX_CHECK(optixSbtRecordPackHeader(missPGs[i], &rec));
-        missRecords.push_back(rec);
-    }
-    missRecordsBuffer.upload(missRecords);
-    sbt.missRecordBase = (CUdeviceptr)missRecordsBuffer.d_ptr;
-    sbt.missRecordStrideInBytes = sizeof(MissSBTRecord);
-    sbt.missRecordCount = (unsigned)missRecords.size();
+        RaygenSBTRecord raygenRec;
+        OPTIX_CHECK(optixSbtRecordPackHeader(modulePGs[i].raygenPG, &raygenRec));
+        raygenRec.data.background = make_float3(0.0f, 0.0f, 0.0f);
+        raygenRecordsBuffer[i].upload(&raygenRec, 1);
+        sbts[i].raygenRecord = (CUdeviceptr)raygenRecordsBuffer[i].d_ptr;
 
-    int meshNum = (int)model->meshes.size();
-    std::vector<HitgroupSBTRecord> hitgroupRecords;
-    for(int j = 0; j < meshNum; j++)
-    {
-        for(int i = 0; i < hitgroupPGs.size(); i++)
+        std::vector<MissSBTRecord> missRecs;
+        for (int j = 0; j < 2; j++)
         {
-            HitgroupSBTRecord rec;
-            OPTIX_CHECK(optixSbtRecordPackHeader(hitgroupPGs[i], &rec));
-
-            rec.data.vertex = (float3*)vertexBuffer[j].d_ptr;
-            rec.data.index = (uint3*)indexBuffer[j].d_ptr;
-            rec.data.normal = (float3*)normalBuffer[j].d_ptr;
-            rec.data.texcoord = (float2*)texcoordBuffer[j].d_ptr;
-            rec.data.color = model->meshes[j]->diffuse;
-            if(length(model->meshes[j]->emittance) > 1e-5)
-            {
-                rec.data.isLight = true;
-                rec.data.emittance = model->meshes[j]->emittance;
-            }
-            else rec.data.isLight = false;
-            if(model->meshes[j]->textureId >= 0)
-            {
-                rec.data.hasTexture = true;
-                rec.data.texture = textureObjects[model->meshes[j]->textureId];
-            }
-            else rec.data.hasTexture = false;
-
-            hitgroupRecords.push_back(rec);
+            MissSBTRecord rec;
+            OPTIX_CHECK(optixSbtRecordPackHeader(modulePGs[i].missPGs[j], &rec));
+            missRecs.push_back(rec);
         }
+        missRecordsBuffer[i].upload(missRecs);
+        sbts[i].missRecordBase = (CUdeviceptr)missRecordsBuffer[i].d_ptr;
+        sbts[i].missRecordStrideInBytes = sizeof(MissSBTRecord);
+        sbts[i].missRecordCount = (unsigned)missRecs.size();
+
+        int meshNum = (int)model->meshes.size();
+        std::vector<HitgroupSBTRecord> hitgroupRecs;
+        for (int k = 0; k < meshNum; k++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                HitgroupSBTRecord rec;
+                OPTIX_CHECK(optixSbtRecordPackHeader(modulePGs[i].hitgroupPGs[j], &rec));
+
+                rec.data.vertex = (float3 *)vertexBuffer[k].d_ptr;
+                rec.data.index = (uint3 *)indexBuffer[k].d_ptr;
+                rec.data.normal = (float3 *)normalBuffer[k].d_ptr;
+                rec.data.texcoord = (float2 *)texcoordBuffer[k].d_ptr;
+                rec.data.color = model->meshes[k]->diffuse;
+                if (length(model->meshes[k]->emittance) > 1e-5)
+                {
+                    rec.data.isLight = true;
+                    rec.data.emittance = model->meshes[k]->emittance;
+                }
+                else
+                    rec.data.isLight = false;
+                if (model->meshes[k]->textureId >= 0)
+                {
+                    rec.data.hasTexture = true;
+                    rec.data.texture = textureObjects[model->meshes[k]->textureId];
+                }
+                else
+                    rec.data.hasTexture = false;
+
+                hitgroupRecs.push_back(rec);
+            }
+        }
+        hitgroupRecordsBuffer[i].upload(hitgroupRecs);
+        sbts[i].hitgroupRecordBase = (CUdeviceptr)hitgroupRecordsBuffer[i].d_ptr;
+        sbts[i].hitgroupRecordStrideInBytes = sizeof(HitgroupSBTRecord);
+        sbts[i].hitgroupRecordCount = (unsigned)hitgroupRecs.size();
     }
-    hitgroupRecordsBuffer.upload(hitgroupRecords);
-    sbt.hitgroupRecordBase = (CUdeviceptr)hitgroupRecordsBuffer.d_ptr;
-    sbt.hitgroupRecordStrideInBytes = sizeof(HitgroupSBTRecord);
-    sbt.hitgroupRecordCount = (unsigned)hitgroupRecords.size();
 }
 
-
-
-Intergrator::Intergrator(const Model* _model, int _w, int _h) : model(_model), width(_w), height(_h)
+Intergrator::Intergrator(const Model *_model, int _w, int _h) : model(_model), width(_w), height(_h)
 {
-    
-    moduleDescs.push_back(
-        {
-            "../../../src/Intergrator/shader/test.ptx",
-            "__raygen__renderFrame",
-            {"__miss__radiance", "__miss__shadow"},
-            {
-                std::make_pair("__closesthit__radiance", "__anyhit__radiance"),
-                std::make_pair("__closesthit__shadow", "__anyhit__shadow")
-            }
-        }
-        
-    );
+
+    modulePTXs.push_back(simple);
 
     std::cout << "initializing optix ..." << std::endl;
     initOptix();
@@ -420,12 +364,11 @@ Intergrator::Intergrator(const Model* _model, int _w, int _h) : model(_model), w
     std::cout << "Optix 7 Renderer fully set up!" << std::endl;
 }
 
-
 void Intergrator::render()
 {
     colorBuffer.alloc(width * height * sizeof(float4));
-    
-    LaunchParams launchParams(width, height, (float4*)colorBuffer.d_ptr, traversable);
+
+    LaunchParams launchParams(width, height, (float4 *)colorBuffer.d_ptr, traversable);
     cudaBuffer launchParamsBuffer;
     launchParamsBuffer.upload(&launchParams, 1);
 
@@ -434,16 +377,15 @@ void Intergrator::render()
         stream,
         (CUdeviceptr)launchParamsBuffer.d_ptr,
         launchParamsBuffer.size,
-        &sbt,
+        &sbts[0],
         width,
         height,
-        1
-    ));
+        1));
 
-    CUDA_SYNC_CHECK();
+    checkCudaErrors(cudaDeviceSynchronize());
 }
 
-void Intergrator::download(float4* pixels)
+void Intergrator::download(float4 *pixels)
 {
     colorBuffer.download(pixels);
 }

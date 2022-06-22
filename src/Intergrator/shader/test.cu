@@ -1,9 +1,9 @@
 #include <optix_device.h>
 #include <device_launch_parameters.h>
 #include "LaunchParams.h"
-#include "helper_math.h"
+#include "deviceHelper.h"
 
-extern "C" __constant__ LaunchParams optixLaunchParams;
+extern "C" __constant__ LaunchParams launchParams;
 
 static __forceinline__ __device__
 void* unpackPointer(uint32_t i0, uint32_t i1)
@@ -47,22 +47,22 @@ extern "C" __global__ void __miss__shadow() {}
 
 
 
-extern "C" __global__ void __raygen__renderFrame()
+extern "C" __global__ void __raygen__()
 {
     const int ix = optixGetLaunchIndex().x;
     const int iy = optixGetLaunchIndex().y;
 
-    float xx = ((ix + 0.5f) / optixLaunchParams.width) * 2.0f - 1.0f;
-    float yy = ((iy + 0.5f) / optixLaunchParams.height) * 2.0f - 1.0f;
+    float xx = ((ix + 0.5f) / launchParams.width) * 2.0f - 1.0f;
+    float yy = ((iy + 0.5f) / launchParams.height) * 2.0f - 1.0f;
 
     float3 ori = make_float3(0.0f, 0.0f, -1.0f);
     float3 dir = make_float3(xx, yy, 1.0f);
 
     int p = 0;
-    uint u0, u1;
+    unsigned u0, u1;
     packPointer(&p, u0, u1);
     optixTrace(
-        optixLaunchParams.traversable,
+        launchParams.traversable,
         ori,
         dir,
         1.0e-3f,
@@ -70,18 +70,18 @@ extern "C" __global__ void __raygen__renderFrame()
         0.0f,
         (unsigned) 255,
         OPTIX_RAY_FLAG_DISABLE_ANYHIT,
-        0,
-        2,
-        0,
+        RADIANCE_RAY_TYPE,
+        RAY_TYPE_COUNT,
+        RADIANCE_RAY_TYPE,
         u0, u1
     );
 
     float4 black = make_float4(0.0f, 0.0f, 0.0f, 1.0f);
     float4 white = make_float4(1.0f, 1.0f, 1.0f, 1.0f);
     
-    int idx = ix + iy * optixLaunchParams.width;
+    int idx = ix + iy * launchParams.width;
     if(p == 0)
-        optixLaunchParams.colorBuffer[idx] = white;
+        launchParams.colorBuffer[idx] = white;
     else
-        optixLaunchParams.colorBuffer[idx] = black;
+        launchParams.colorBuffer[idx] = black;
 }

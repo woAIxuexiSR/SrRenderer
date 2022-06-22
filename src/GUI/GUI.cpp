@@ -1,4 +1,4 @@
-#include "Window.h"
+#include "GUI.h"
 
 
 void framebuffer_size_callback(GLFWwindow* window, int w, int h)
@@ -7,7 +7,7 @@ void framebuffer_size_callback(GLFWwindow* window, int w, int h)
 }
 
 
-unsigned int Window::loadShader(GLenum type, std::string filepath)
+unsigned int GUI::loadShader(GLenum type, std::string filepath)
 {
     std::fstream fs(filepath, std::ios::in);
     if(!fs.is_open())
@@ -43,7 +43,7 @@ unsigned int Window::loadShader(GLenum type, std::string filepath)
 }
 
 
-void Window::createProgram(std::string vertexPath, std::string fragmentPath)
+void GUI::createProgram(std::string vertexPath, std::string fragmentPath)
 {
     unsigned int vertexShader, fragmentShader;
     vertexShader = loadShader(GL_VERTEX_SHADER, vertexPath);
@@ -70,7 +70,7 @@ void Window::createProgram(std::string vertexPath, std::string fragmentPath)
 }
 
 
-void Window::createVAO()
+void GUI::createVAO()
 {
     float quadVertices[] = 
     {
@@ -102,7 +102,7 @@ void Window::createVAO()
 }
 
 
-unsigned int Window::loadTexture(const std::vector<float4>& pixels, int pw, int ph)
+unsigned int GUI::loadTexture(const std::vector<float4>& pixels, int pw, int ph)
 {
 	unsigned int texture;
 	glGenTextures(1, &texture);
@@ -122,7 +122,7 @@ unsigned int Window::loadTexture(const std::vector<float4>& pixels, int pw, int 
 }
 
 
-Window::Window(int w, int h, GLFWcursorposfun cursor_pos_callback, GLFWscrollfun scroll_callback) : width(w), height(h)
+GUI::GUI(int w, int h, GLFWcursorposfun cursor_pos_callback, GLFWscrollfun scroll_callback) : width(w), height(h)
 {
     glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -153,6 +153,7 @@ Window::Window(int w, int h, GLFWcursorposfun cursor_pos_callback, GLFWscrollfun
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
+    ImPlot::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	ImGui::StyleColorsDark();
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -169,24 +170,28 @@ Window::Window(int w, int h, GLFWcursorposfun cursor_pos_callback, GLFWscrollfun
 }
 
 
-Window::~Window()
+GUI::~GUI()
 {
     glDeleteProgram(programId);
     glDeleteVertexArrays(1, &vao);
+
     ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImPlot::DestroyContext();
+    ImGui::DestroyContext();
 
     glfwDestroyWindow(window);
     glfwTerminate();
 }
 
 
-bool Window::shouldClose()
+bool GUI::shouldClose()
 {
     return glfwWindowShouldClose(window);
 }
 
 
-void Window::run(const std::vector<float4>& pixels, int pw, int ph)
+void GUI::run(const std::vector<float4>& pixels, int pw, int ph)
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
@@ -195,14 +200,19 @@ void Window::run(const std::vector<float4>& pixels, int pw, int ph)
     ImGui::Begin("SR Renderer");
     ImGui::Text("Application Time %.1f s", glfwGetTime());
     ImGui::Text("Application average %.1f FPS", ImGui::GetIO().Framerate);
+    unsigned texture = loadTexture(pixels, pw, ph);
+    // ImTextureID image_id = (GLuint*)texture;
+    // ImGui::Image(image_id, ImVec2((float)pw, (float)ph));
     ImGui::End();
+
+    // ImPlot::ShowDemoWindow();
 
     ImGui::Render();
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    unsigned texture = loadTexture(pixels, pw, ph);
+    
 
     glUseProgram(programId);
     glBindVertexArray(vao);

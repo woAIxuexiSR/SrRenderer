@@ -6,6 +6,8 @@
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_glfw.h"
+#include "implot.h"
+#include "implot_internal.h"
 
 #include <cuda_runtime.h>
 
@@ -16,7 +18,7 @@
 #include <vector>
 #include <filesystem>
 
-class Window
+class GUI
 {
 private:
     unsigned int programId;
@@ -32,8 +34,8 @@ public:
     GLFWwindow* window;
     int width, height;
 
-    Window(int w, int h, GLFWcursorposfun cursor_pos_callback = nullptr, GLFWscrollfun scroll_callback = nullptr);
-    ~Window();
+    GUI(int w, int h, GLFWcursorposfun cursor_pos_callback = nullptr, GLFWscrollfun scroll_callback = nullptr);
+    ~GUI();
     bool shouldClose();
     void run(const std::vector<float4>& pixels, int pw, int ph);
 

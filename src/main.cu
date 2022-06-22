@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "Window.h"
+#include "GUI.h"
 #include "Model.h"
 
 #include "Intergrator.h"
@@ -24,7 +24,7 @@ int main()
     model->meshes.push_back(mesh);
 
     const int width = 800, height = 600;
-    Window w(width, height);
+    GUI w(width, height);
 
     Intergrator i(model, width, height);
 
