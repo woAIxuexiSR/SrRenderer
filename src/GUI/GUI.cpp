@@ -150,6 +150,7 @@ GUI::GUI(int w, int h, GLFWcursorposfun cursor_pos_callback, GLFWscrollfun scrol
         glfwSetCursorPosCallback(window, cursor_pos_callback);
     if(scroll_callback != nullptr)
 	    glfwSetScrollCallback(window, scroll_callback);
+    glfwSwapInterval(0);
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -200,9 +201,28 @@ void GUI::run(const std::vector<float4>& pixels, int pw, int ph)
     ImGui::Begin("SR Renderer");
     ImGui::Text("Application Time %.1f s", glfwGetTime());
     ImGui::Text("Application average %.1f FPS", ImGui::GetIO().Framerate);
+
+
     unsigned texture = loadTexture(pixels, pw, ph);
     // ImTextureID image_id = (GLuint*)texture;
     // ImGui::Image(image_id, ImVec2((float)pw, (float)ph));
+
+    // cudaArray *texture_ptr;
+    // cudaGraphicsResource* cuda_tex_result_resource;
+    // checkCudaErrors(cudaGraphicsMapResources(1, &cuda_tex_result_resource, 0));
+    // checkCudaErrors(cudaGraphicsSubResourceGetMappedArray(
+    //     &texture_ptr, cuda_tex_result_resource, 0, 0));
+
+    // int num_texels = pw * ph;
+    // int num_values = num_texels * 4;
+    // int size_tex_data = sizeof(GLubyte) * num_values;
+    // unsigned int* cuda_dest_resource;
+    // checkCudaErrors(cudaMemcpyToArray(texture_ptr, 0, 0, cuda_dest_resource,
+    //                                     size_tex_data, cudaMemcpyDeviceToDevice));
+
+    // checkCudaErrors(cudaGraphicsUnmapResources(1, &cuda_tex_result_resource, 0));
+
+
     ImGui::End();
 
     // ImPlot::ShowDemoWindow();

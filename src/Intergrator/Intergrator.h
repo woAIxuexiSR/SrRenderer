@@ -7,11 +7,17 @@
 #include <vector>
 
 #include "Model.h"
-#include "Model.h"
 #include "deviceHelper.h"
+
 
 #include "LaunchParams.h"
 
+
+// inline void test(){
+// #ifdef max
+//     std::cout << "max defined" << std::endl;
+// #endif
+// }
 /* optix helper definitions */
 #define OPTIX_CHECK(call)                                                                             \
     {                                                                                                 \

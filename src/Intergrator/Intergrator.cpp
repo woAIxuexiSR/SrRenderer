@@ -313,13 +313,13 @@ void Intergrator::buildSBT()
                 rec.data.normal = (float3 *)normalBuffer[k].d_ptr;
                 rec.data.texcoord = (float2 *)texcoordBuffer[k].d_ptr;
                 rec.data.color = model->meshes[k]->diffuse;
-                if (length(model->meshes[k]->emittance) > 1e-5)
-                {
-                    rec.data.isLight = true;
-                    rec.data.emittance = model->meshes[k]->emittance;
-                }
-                else
-                    rec.data.isLight = false;
+                // if (length(model->meshes[k]->emittance) > 1e-5)
+                // {
+                //     rec.data.isLight = true;
+                //     rec.data.emittance = model->meshes[k]->emittance;
+                // }
+                // else
+                //     rec.data.isLight = false;
                 if (model->meshes[k]->textureId >= 0)
                 {
                     rec.data.hasTexture = true;

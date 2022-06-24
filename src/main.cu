@@ -14,8 +14,9 @@ void processInput(GLFWwindow *window)
 }
 
 int main()
+
 {
-    float3 a = make_float3(1, 2, 3);
+        float3 a = make_float3(1, 2, 3);
     std::cout << a.x << " " << a.y << " " << a.z << std::endl;
 
     TriangleMesh* mesh = new TriangleMesh;

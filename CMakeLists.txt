@@ -4,6 +4,7 @@ project(SrRenderer LANGUAGES C CXX CUDA)
 
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_STANDARD 17)
+# add_compile_definitions(-DNOMINMAX)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CUDA_ARCHITECTURES 86)
 
@@ -30,7 +31,7 @@ set(CUDA_SDK_ROOT_DIR "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.5"
 find_package(CUDA REQUIRED)
 find_program(BIN2C bin2c)
 list(APPEND PROJECT_INCLUDES "${CUDA_TOOLKIT_ROOT_DIR}/include")
-list(APPEND PROJECT_LIBS "${CUDA_LIBRARIES}" "${CUDA_CUDA_LIBRARY}" "${CUDA_TOOLKIT_ROOT_DIR}/lib/x64/nvrtc.lib")
+list(APPEND PROJECT_LIBS "${CUDA_LIBRARIES}" "${CUDA_CUDA_LIBRARY}")
 
 # cuda samples
 set(CUDA_SAMPLES_DIR "D:/software/cuda-samples-master" CACHE PATH "Path to cuda samples")
